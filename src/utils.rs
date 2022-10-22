@@ -418,6 +418,13 @@ pub struct ErrorTemplate {
 	pub url: String,
 }
 
+/// Donation option
+/// TODO: Finish this.
+#[derive(Template)]
+#[template(path = "donate.html")]
+
+
+
 /// Template for NSFW landing page. The landing page is displayed when a page's
 /// content is wholly NSFW, but a user has not enabled the option to view NSFW
 /// posts.

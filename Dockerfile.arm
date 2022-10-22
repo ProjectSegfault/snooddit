@@ -5,7 +5,7 @@ FROM rust:alpine AS builder
 
 RUN apk add --no-cache g++
 
-WORKDIR /usr/src/ferrit
+WORKDIR /usr/src/snooddit
 
 COPY . .
 
@@ -21,16 +21,16 @@ COPY --from=builder /usr/share/ca-certificates /usr/share/ca-certificates
 COPY --from=builder /etc/ssl/certs /etc/ssl/certs
 
 # Copy our build
-COPY --from=builder /usr/local/cargo/bin/ferrit /usr/local/bin/ferrit
+COPY --from=builder /usr/local/cargo/bin/snooddit/usr/local/bin/snooddit
 
 # Use an unprivileged user.
-RUN adduser --home /nonexistent --no-create-home --disabled-password ferrit
-USER ferrit
+RUN adduser --home /nonexistent --no-create-home --disabled-password snooddit 
+USER snooddit 
 
 # Tell Docker to expose port 8080
 EXPOSE 8080
 
-# Run a healthcheck every minute to make sure ferrit is functional
+# Run a healthcheck every minute to make sure snooddit is functional
 HEALTHCHECK --interval=1m --timeout=3s CMD wget --spider --q http://localhost:8080/settings || exit 1
 
-CMD ["ferrit"]
+CMD ["snooddit"]
