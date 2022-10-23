@@ -1,6 +1,6 @@
 {
-	"name": "Ferrit",
-	"short_name": "Ferrit",
+	"name": "Snooddit",
+	"short_name": "Snooddit",
 	"display": "standalone",
 	"background_color": "#1f1f1f",
 	"description": "An alternative private front-end to Reddit",
