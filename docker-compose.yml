@@ -2,9 +2,11 @@ version: "3.8"
 
 services:
   web:
-    build: .
+    # If you wish to build the container uncomment build and comment image.
+    # build: .
+    image: realprojectsegfault/snooddit
     restart: always
-    container_name: "ferrit"
+    container_name: "snooddit"
     ports:
       - 8080:8080
     healthcheck:
