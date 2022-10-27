@@ -863,14 +863,9 @@ pub fn sfw_only() -> bool {
 	env::var("FERRIT_SFW_ONLY").is_ok() || env::var("SNOODDIT_SFW_ONLY").is_ok()
 }
 
-/// Put the donation URL of your choice in the SNOODDIT_DONATE_URL environment variable.
-/// If this environment variable is set, a new button will appear showing the donate button on the
-/// right. Otherwise, nothing will show up.
-/// TODO: Make sure it actually works! Also, String when OK and String when error? What??
-pub fn donate_button() -> Result<String, String> {
-	let donate_url = std::env::var("SNOODDIT_DONATE_URL").unwrap().to_string();
-	print!("{}", donate_url);
-	Ok(donate_url)
+/// Check if The donation variable is actually available in first place
+pub fn donate_var_check() -> bool {
+	env::var("SNOODDIT_DONATE_URL").is_ok()
 }
 
 /// Render the landing page for NSFW content when the user has not enabled
