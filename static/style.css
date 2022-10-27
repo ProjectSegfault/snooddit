@@ -97,7 +97,7 @@ nav * { color: var(--text); }
 nav #snooddit_logo_p2, #code > span { color: var(--accent); }
 nav #code > svg { stroke: var(--accent); }
 nav #snooddit_logo > svg { stroke: var(--accent); }
-
+nav #donate > svg { fill: var(--accent); stroke: var(--accent); }
 
 nav #logo {
 	grid-area: logo;
@@ -139,7 +139,11 @@ nav #snooddit_logo {
 	opacity: 0.8;
 }
 
-#code {
+#donate {
+	opacity: 0.8;
+}
+
+#code, #donate {
 	margin-left: 10px;
 }
 
