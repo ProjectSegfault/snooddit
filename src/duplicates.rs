@@ -49,9 +49,7 @@ struct DuplicatesTemplate {
 	/// all_posts_filtered is true if every duplicate was filtered. This is an
 	/// edge case but can still happen.
 	all_posts_filtered: bool,
-
 }
-
 
 /// Make the GET request to Reddit. It assumes `req` is the appropriate Reddit
 /// REST endpoint for enumerating post duplicates.
@@ -199,7 +197,6 @@ pub async fn item(req: Request<Body>) -> Result<Response<Body>, String> {
 				}
 			}
 			let url = req.uri().to_string();
-			
 
 			template(DuplicatesTemplate {
 				params: DuplicatesParams { before, after, sort },
