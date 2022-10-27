@@ -10,6 +10,7 @@ use hyper::{Body, Request, Response};
 use serde_json::Value;
 use std::borrow::ToOwned;
 use std::collections::HashSet;
+use std::env;
 use std::vec::Vec;
 
 /// DuplicatesParams contains the parameters in the URL.

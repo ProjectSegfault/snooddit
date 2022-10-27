@@ -681,7 +681,13 @@ pub fn setting(req: &Request<Body>, name: &str) -> String {
 		.cookie(name)
 		.unwrap_or_else(|| {
 			// If there is no cookie for this setting, try receiving a default from an environment variable
-			if let Ok(default) = std::env::var(format!("FERRIT_DEFAULT_{}", name.to_uppercase())) {
+			// Fetch for Snoodit variables, then ferrit variable, then the libreddit one.
+			// TODO: Either use switch cases or make OR variables.
+			if let Ok(default) = std::env::var(format!("SNOODDIT_DEFAULT_{}", name.to_uppercase())) {
+				Cookie::new(name, default)
+			} else if let Ok(default) = std::env::var(format!("FERRIT_DEFAULT_{}", name.to_uppercase())) {
+				Cookie::new(name, default)
+			} else if let Ok(default) = std::env::var(format!("LIBREDDIT_DEFAULT_{}", name.to_uppercase())) {
 				Cookie::new(name, default)
 			} else {
 				Cookie::named(name)
@@ -766,7 +772,7 @@ pub fn format_url(url: &str) -> String {
 	}
 }
 
-// Rewrite Reddit links to Ferrit in body of text
+// Rewrite Reddit links to Snooddit in body of text
 pub fn rewrite_urls(input_text: &str) -> String {
 	let text1 = Regex::new(r#"href="(https|http|)://(www\.|old\.|np\.|amp\.|)(reddit\.com|redd\.it)/"#)
 		.map_or(String::new(), |re| re.replace_all(input_text, r#"href="/"#).to_string())
@@ -774,7 +780,7 @@ pub fn rewrite_urls(input_text: &str) -> String {
 		.replace("%5C", "")
 		.replace('\\', "");
 
-	// Rewrite external media previews to Ferrit
+	// Rewrite external media previews to Snooddit
 	Regex::new(r"https://external-preview\.redd\.it(.*)[^?]").map_or(String::new(), |re| {
 		if re.is_match(&text1) {
 			re.replace_all(&text1, format_url(re.find(&text1).map(|x| x.as_str()).unwrap_or_default())).to_string()
@@ -869,7 +875,12 @@ pub async fn error(req: Request<Body>, msg: String) -> Result<Response<Body>, St
 /// If environment variable is set, this bool will be true. Otherwise it will be false.
 /// This variable is set by the instance operator, and as such, side-steps the user config
 pub fn sfw_only() -> bool {
-	env::var("FERRIT_SFW_ONLY").is_ok()
+	env::var("FERRIT_SFW_ONLY").is_ok() || env::var("SNOODDIT_SFW_ONLY").is_ok()
+}
+
+/// Check if The donation variable is actually available in first place
+pub fn donate_var_check() -> bool {
+	env::var("SNOODDIT_DONATE_URL").is_ok()
 }
 
 /// Render the landing page for NSFW content when the user has not enabled

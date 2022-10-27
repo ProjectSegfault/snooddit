@@ -31,8 +31,9 @@ COPY --from=builder /etc/ssl/certs /etc/ssl/certs
 COPY --from=builder /snooddit/target/armv7-unknown-linux-musleabihf/release/snooddit /usr/local/bin/snooddit
 
 # Use an unprivileged user.
-RUN adduser --home /nonexistent --no-create-home --disabled-password snooddit 
-USER snooddit 
+
+RUN adduser --home /nonexistent --no-create-home --disabled-password snooddit
+USER snooddit
 
 # Tell Docker to expose port 8080
 EXPOSE 8080

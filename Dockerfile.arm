@@ -21,11 +21,12 @@ COPY --from=builder /usr/share/ca-certificates /usr/share/ca-certificates
 COPY --from=builder /etc/ssl/certs /etc/ssl/certs
 
 # Copy our build
-COPY --from=builder /usr/local/cargo/bin/snooddit/usr/local/bin/snooddit
+
+COPY --from=builder /usr/local/cargo/bin/snooddit /usr/local/bin/snooddit
 
 # Use an unprivileged user.
-RUN adduser --home /nonexistent --no-create-home --disabled-password snooddit 
-USER snooddit 
+RUN adduser --home /nonexistent --no-create-home --disabled-password snooddit
+USER snooddit
 
 # Tell Docker to expose port 8080
 EXPOSE 8080
