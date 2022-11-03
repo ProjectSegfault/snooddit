@@ -1,3 +1,5 @@
+### Update: The maintainer of Libreddit is back, as such Snooddit will soon be switching to libreddit's codebase (after the rename). Thank you for reading.
+
 # Snooddit
 
 **Snooddit** is a front-end for Reddit, written in [Rust](https://www.rust-lang.org/). It is a fork of [Ferrit](https://github.com/ferritreader/ferrit) which itself is a fork of the [Libreddit project](https://github.com/spikecodes/libreddit) started by [spikecodes](https://spike.codes).
